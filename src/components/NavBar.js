@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import {
     AppBar,
     Toolbar,
@@ -12,66 +12,68 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import { makeStyles } from '@material-ui/core/styles';
 import { Link, withRouter } from "react-router-dom";
+import {appStore} from '../store/';
 
-class NavBar extends React.Component {
+const NavBar = (props) => {
+    const store = useContext(appStore);
+    const [drawer, setDrawer] = useState(false);
 
-    constructor(props) {
-        super(props);
+    const styles = makeStyles({
+        nav: {
+            background: store.theme.nav
+        },
+        header: {
+            background: store.theme.partials 
+        }
+    })();
 
-        this.state = {
-            drawer: false
-        };
+    const toggleDrawer = () => {
+        setDrawer(!drawer);
     }
 
-    toggleDrawer = () => {
-        this.setState({
-            drawer: !this.state.drawer
-        });
-    }
-
-    logout = () => {
+    const logout = () => {
         // todo use authcontext logout method
-        this.toggleDrawer();
+        toggleDrawer();
     }
 
-    render() {
-        return (
-            <div>
-                <AppBar position="static" >
-                    <Toolbar style={{ display: "flex", justifyContent: "space-between"}}>
-                        <IconButton color="inherit" onClick={this.toggleDrawer}>
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="h6">
-                            React Dashboard
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
-                <Drawer
-                    open={this.state.drawer}
-                    onClose={this.toggleDrawer}
-                    style={{ width: 600 }}
-                >
-                    <List>
-                        <ListItem>
-                            <Link to="/">
-                                <Button color="secondary" onClick={this.logout}>
-                                    <ExitToAppIcon /> Logout
-                                </Button>
-                            </Link>
-                        </ListItem>
-                        <ListItem>
-                            <Link to="/dashboard">
-                                <Button color="primary" onClick={this.toggleDrawer}>
-                                    <DashboardIcon /> Dashboard
-                                </Button>
-                            </Link>
-                        </ListItem>
-                    </List>
-                </Drawer>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <AppBar position="static" className={styles.header}>
+                <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
+                    <IconButton color="inherit" onClick={toggleDrawer}>
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6">
+                        React Dashboard
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+            <Drawer
+                open={drawer}
+                onClose={toggleDrawer}
+                style={{ width: 600 }}
+                classes={{paper: styles.nav}}
+            >
+                <List style={{ background: store.theme.nav }}>
+                    <ListItem>
+                        <Link to="/">
+                            <Button color="secondary" onClick={logout}>
+                                <ExitToAppIcon /> Logout
+                            </Button>
+                        </Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link to="/dashboard">
+                            <Button color="primary" onClick={toggleDrawer}>
+                                <DashboardIcon /> Dashboard
+                            </Button>
+                        </Link>
+                    </ListItem>
+                </List>
+            </Drawer>
+        </div>
+    );
 }
 export default withRouter(NavBar);

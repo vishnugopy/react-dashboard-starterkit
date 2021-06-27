@@ -1,7 +1,6 @@
 import React, {useState, useContext} from 'react';
 import { Button, TextField } from '@material-ui/core';
 import useStyles from '../theme/forms.css';
-import {login} from '../store/actions';
 import { appStore } from '../store/';
 
 const LoginForm = (props) => {
@@ -9,18 +8,19 @@ const LoginForm = (props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
+    const store = useContext(appStore);
+    const classes = useStyles();
 
-    const storeContext = useContext(appStore);
-    console.log(storeContext);
 
     const handleClick = async (e) => {
         console.log(username, password);
 
-        const action = login("tokenblabla");
-        storeContext.dispatch(action, storeContext.store);
+        store.user.dispatch({
+            type: 'LOGIN', 
+            payload: "tokenblabli"
+        }, store.user);
     }
 
-    const classes = useStyles();
     
     return (
         <div>

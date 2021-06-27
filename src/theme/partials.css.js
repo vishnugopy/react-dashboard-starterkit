@@ -1,6 +1,6 @@
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = (store) => makeStyles((theme) =>
     createStyles({
         container: {
             display: 'flex',
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) =>
             bottom: 0,
             left: 0,
             width: '100%',
-            background: theme.palette.primary.light,
+            background: store.theme.partials,
             color: theme.palette.common.white,
             padding: theme.spacing(1.5)
         },
