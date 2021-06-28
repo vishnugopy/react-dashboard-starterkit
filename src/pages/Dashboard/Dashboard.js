@@ -17,6 +17,7 @@ const Dashboard = () => {
       display: "flex",
       flexWrap: "wrap",
       justifyContent: "space-between",
+      marginTop:"50px"
     },
   }));
 
@@ -54,7 +55,6 @@ const Dashboard = () => {
   return (
     <Container className="list-all">
       {error && <p>{error}</p>}
-      <h1>Welcome !</h1>
       <Container className={classes.maincontainer}>
         <ListItems class={classes.gridItem} title="Promos" items={promos} />
         <ListItems title="Apprenants" items={students} />
