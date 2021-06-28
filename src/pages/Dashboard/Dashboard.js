@@ -12,6 +12,7 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { apprenantService, promoService } from "../../services";
+import theme from '../../theme/theme.css'
 
 const Dashboard = () => {
   const [error, setError] = useState(null);
@@ -25,17 +26,19 @@ const Dashboard = () => {
       
     },
     sub: {
-        border: '1px solid black',  
+        border: '1px solid #3F51B5',  
         padding: '0',
-        margin:'2'
+        margin:'5px',
+        borderRadius : '15px',
+        overflow:'hidden'
     },
     subheading :{
-        background : 'blue',
+        background : '#3F51B5',
         color : 'white',
         padding : '1rem',
         margin:'0'
         
-    }
+    } 
   }));
 
   const classes = useStyles();
