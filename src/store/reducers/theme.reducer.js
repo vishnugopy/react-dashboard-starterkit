@@ -14,7 +14,7 @@ const themeReducer = (state, action) => {
         case 'DARK':
             return {
                 ...state,
-                partials: '#000833;',
+                partials: '#000833',
                 color: 'whitesmoke',
                 body: 'darkslateblue',
                 nav: '#0e0d19'

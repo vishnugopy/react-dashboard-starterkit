@@ -9,7 +9,7 @@ const userInitialState = {
 }
 
 const themeInitialState = {
-    partials: '#3f51b5;',
+    partials: '#3f51b5',
     color: 'whitesmoke',
     body: '#afadce',
     nav: 'aliceblue'
