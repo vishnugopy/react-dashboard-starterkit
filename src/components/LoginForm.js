@@ -2,23 +2,24 @@ import React, {useState , Redirect , useContext}  from 'react';
 import { Button, TextField } from '@material-ui/core';
 import useStyles from '../theme/forms.css';
 import { login } from '../services';
-import { AppContext } from '../store';
+import authContext from '../store';
 
 const LoginForm = (props) => {
 
-    const store = useContext(AppContext);
+   
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
+    const authstore = useContext(authContext);
 
     const handleClick = async (e) => {
-        const loginData = await login(username, password);
-        console.log(loginData);
         try {
+            const loginData = await login(username, password);
             if(loginData.data.success){
                 const {token} = loginData.data;
                 localStorage.setItem("token" , token);
-                //store.setAuth(true);
+                authstore.setToken(loginData.data);
+                authstore.setIsAuth(true);
                 props.history.push('/dashboard');
             }
         } catch (error) {

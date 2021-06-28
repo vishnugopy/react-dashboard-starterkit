@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useContext} from "react";
+import authContext from "../../store";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container } from "@material-ui/core";
 import {
@@ -27,6 +28,7 @@ const Dashboard = () => {
   const [promos, setPromos] = useState([]);
   const [formateurs, setFormateurs] = useState([]);
   const [salles, setSalles] = useState([]);
+  const authstore = useContext(authContext);
 
   const getStudentsData = async () => {
     const studentsData = await apprenantService.getAll();
