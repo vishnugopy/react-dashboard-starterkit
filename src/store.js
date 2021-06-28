@@ -1,42 +1,18 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 
+const authContext = createContext();
 
-const AppContext = React.createContext();
+const AuthProvider = ({ children }) => {
+  const tokenStorage = localStorage.getItem("token");
+  const [isAuth, setIsAuth] = useState(tokenStorage ? true : false);
+  const [token, setToken] = useState(tokenStorage ? token : null);
 
-class AppProvider extends React.Component {
-    constructor(props) {
-        super(props)
+  return (
+    <authContext.Provider value={{ isAuth, setIsAuth, token, setToken }}>
+      {children}
+    </authContext.Provider>
+  );
+};
 
-        const token = localStorage.getItem('token');        
-
-        this.state={
-            isAuth: token ? true : false ,
-            setAuth: this.setAuth   
-        }
-    }
-
-    setUser = (user) => {
-        this.setState({user});
-    }
-    
-    setAuth = (boolean) => {
-        this.setState({isAuth: boolean});
-    } 
-    
-    componentDidMount () {
-        // const token = localStorage.getItem('token');    
-        // const secret = process.env.REACT_APP_SECRET;
-
-    }
-    
-    render () {
-        return (
-            <appContext.Provider value={this.state}>
-                {this.props.children}
-            </appContext.Provider>
-        )
-    }
-}
-
-
-export {AppProvider , AppContext};
+export {AuthProvider};
+export default authContext;

@@ -39,7 +39,7 @@ const ListItems = (props) => {
         {props.items.map((item, i) => {
           return (
             <ListItem key={i}>
-              <ListItemText primary={item.name || item.firstname}  secondary={item.lastname} />
+              <ListItemText primary={item.name || item.firstname}  secondary={item.lastname || item.capacity } />
               <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="edit">
                   <EditIcon />
