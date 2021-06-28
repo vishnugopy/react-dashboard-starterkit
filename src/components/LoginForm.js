@@ -18,7 +18,7 @@ const LoginForm = (props) => {
             if(loginData.data.success){
                 const {token} = loginData.data;
                 localStorage.setItem("token" , token);
-                store.setAuth(true);
+                //store.setAuth(true);
                 props.history.push('/dashboard');
             }
         } catch (error) {
