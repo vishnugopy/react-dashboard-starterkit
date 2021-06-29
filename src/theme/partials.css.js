@@ -9,10 +9,6 @@ const useStyles = makeStyles((theme) =>
             paddingBottom: theme.spacing(1.5)
         },
         footer: {
-            position: 'fixed',
-            bottom: 0,
-            left: 0,
-            width: '100%',
             background: theme.palette.primary.light,
             color: theme.palette.common.white,
             padding: theme.spacing(1.5)
