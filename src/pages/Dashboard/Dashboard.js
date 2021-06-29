@@ -18,7 +18,8 @@ const Dashboard = () => {
       display: "flex",
       flexWrap: "wrap",
       justifyContent: "space-between",
-      marginTop:"50px"
+      marginTop:"5%",
+      marginBottom:"15%",
     },
   }));
 
