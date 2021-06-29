@@ -44,6 +44,9 @@ const ListItems = (props) => {
       marginTop: "1%",
       marginBottom: "1%",
     },
+    buttons : {
+      marginRight : "1%",
+    }
   }));
 
   const classes = useStyles();
@@ -93,14 +96,15 @@ const ListItems = (props) => {
               />
               <TextField
                 id="name"
-                label="Name"
+                label="Firstname"
                 variant="outlined"
                 className={classes.inputarea}
               />
-              <Button variant="outlined" color="primary">
+              <Button variant="outlined" color="primary" className={classes.buttons}>
                 SEND
               </Button>
-              <Button variant="outlined" color="secondary">
+
+              <Button variant="outlined" color="secondary" onClick={handleClickAdd}>
                 CANCEL
               </Button>
             </ListItem>
