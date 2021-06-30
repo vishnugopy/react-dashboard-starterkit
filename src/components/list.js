@@ -44,9 +44,9 @@ const ListItems = (props) => {
       marginTop: "1%",
       marginBottom: "1%",
     },
-    buttons : {
-      marginRight : "1%",
-    }
+    buttons: {
+      marginRight: "1%",
+    },
   }));
 
   const classes = useStyles();
@@ -57,6 +57,10 @@ const ListItems = (props) => {
     setShowInputs(!showInputs);
   };
 
+  const handleClickDelete = (e) => {
+    console.log(e.target.id);
+  };
+
   return (
     <Container className={classes.sub}>
       <h2 className={classes.subheading}>{props.title}</h2>
@@ -64,8 +68,9 @@ const ListItems = (props) => {
       <List>
         {props.items.map((item, i) => {
           return (
-            <ListItem key={i}>
+            <ListItem key={i} >
               <ListItemText
+              id={item.id}
                 primary={item.name || item.firstname}
                 secondary={item.lastname || item.capacity}
               />
@@ -73,8 +78,8 @@ const ListItems = (props) => {
                 <IconButton edge="end" aria-label="edit">
                   <EditIcon />
                 </IconButton>
-                <IconButton edge="end" aria-label="delete">
-                  <DeleteIcon />
+                <IconButton edge="end" aria-label="delete" id={item.id} >
+                  <DeleteIcon id={item.id} onClick={handleClickDelete}/>
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>
@@ -96,15 +101,38 @@ const ListItems = (props) => {
               />
               <TextField
                 id="name"
-                label="Firstname"
+                label="First Name"
                 variant="outlined"
                 className={classes.inputarea}
               />
-              <Button variant="outlined" color="primary" className={classes.buttons}>
+
+              <TextField
+                id="name"
+                label="Last Name"
+                variant="outlined"
+                className={classes.inputarea}
+              />
+
+               <TextField
+                id="name"
+                label="Capacity"
+                variant="outlined"
+                className={classes.inputarea}
+              />
+
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classes.buttons}
+              >
                 SEND
               </Button>
 
-              <Button variant="outlined" color="secondary" onClick={handleClickAdd}>
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={handleClickAdd}
+              >
                 CANCEL
               </Button>
             </ListItem>
