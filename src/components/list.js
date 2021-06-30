@@ -18,7 +18,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const ListItems = (props) => {
   const useStyles = makeStyles((theme) => ({
     sub: {
-      width: "48%",
+      flexGrow:1,
       border: "1px solid #3f51b515",
       padding: "0",
       margin: "5px",
@@ -36,7 +36,7 @@ const ListItems = (props) => {
       flexWrap: "wrap",
     },
     box: {
-      padding: "2%",
+      padding: "1%",
       margin: "1%",
     },
     inputarea: {
@@ -79,7 +79,7 @@ const ListItems = (props) => {
                   <EditIcon />
                 </IconButton>
                 <IconButton edge="end" aria-label="delete" id={item.id} >
-                  <DeleteIcon id={item.id} onClick={handleClickDelete}/>
+                  <DeleteIcon />
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>
@@ -100,21 +100,21 @@ const ListItems = (props) => {
                 className={classes.inputarea}
               />
               <TextField
-                id="name"
+                id="firstname"
                 label="First Name"
                 variant="outlined"
                 className={classes.inputarea}
               />
 
               <TextField
-                id="name"
+                id="lastname"
                 label="Last Name"
                 variant="outlined"
                 className={classes.inputarea}
               />
 
                <TextField
-                id="name"
+                id="capacity"
                 label="Capacity"
                 variant="outlined"
                 className={classes.inputarea}
