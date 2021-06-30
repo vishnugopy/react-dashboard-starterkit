@@ -51,7 +51,16 @@ const ListItems = (props) => {
 
   const classes = useStyles();
 
-  const [showInputs, setShowInputs] = useState(false);
+  const [showInputs, setShowInputs] = useState("");
+  const [name, setName] = useState("");
+  const [firstname, setFirstame] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [capacity, setCapacity] = useState(0);
+  
+  console.log(capacity);
+  console.log(name);
+  console.log(firstname);
+  console.log(lastname);
 
   const handleClickAdd = () => {
     setShowInputs(!showInputs);
@@ -78,7 +87,7 @@ const ListItems = (props) => {
                 <IconButton edge="end" aria-label="edit">
                   <EditIcon />
                 </IconButton>
-                <IconButton edge="end" aria-label="delete" id={item.id} >
+                <IconButton edge="end" aria-label="delete" id={item.id} onClick={handleClickDelete}>
                   <DeleteIcon />
                 </IconButton>
               </ListItemSecondaryAction>
@@ -98,12 +107,14 @@ const ListItems = (props) => {
                 label="Name"
                 variant="outlined"
                 className={classes.inputarea}
+                onChange={(e)=>{setName(e.target.value)}}
               />
               <TextField
                 id="firstname"
                 label="First Name"
                 variant="outlined"
                 className={classes.inputarea}
+                onChange={(e)=>{setFirstame(e.target.value)}}
               />
 
               <TextField
@@ -111,13 +122,16 @@ const ListItems = (props) => {
                 label="Last Name"
                 variant="outlined"
                 className={classes.inputarea}
+                onChange={(e)=>{setLastname(e.target.value)}}
               />
 
                <TextField
+               type="number"
                 id="capacity"
                 label="Capacity"
                 variant="outlined"
                 className={classes.inputarea}
+                onChange={(e)=>{setCapacity(e.target.value)}}
               />
 
               <Button
