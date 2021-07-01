@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import AddIcon from "@material-ui/icons/Add";
+import {
+  apprenantService,
+  promoService,
+  formateurService,
+  reservationService,
+  salleService,
+} from "../services";
 import {
   Container,
   List,
@@ -18,7 +24,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const ListItems = (props) => {
   const useStyles = makeStyles((theme) => ({
     sub: {
-      flexGrow:1,
+      flexGrow: 1,
       border: "1px solid #3f51b515",
       padding: "0",
       margin: "5px",
@@ -56,18 +62,22 @@ const ListItems = (props) => {
   const [firstname, setFirstame] = useState("");
   const [lastname, setLastname] = useState("");
   const [capacity, setCapacity] = useState(0);
-  
-  console.log(capacity);
+
+
   console.log(name);
-  console.log(firstname);
-  console.log(lastname);
+  
+  
 
   const handleClickAdd = () => {
     setShowInputs(!showInputs);
   };
 
-  const handleClickDelete = (e) => {
-    console.log(e.target.id);
+  const handleClickDelete = (id,e) => {
+    promoService.deletePromo(id);
+  };
+
+  const handleaddDonnes = () => {
+     promoService.addPromo(name);
   };
 
   return (
@@ -77,9 +87,9 @@ const ListItems = (props) => {
       <List>
         {props.items.map((item, i) => {
           return (
-            <ListItem key={i} >
+            <ListItem key={i}>
               <ListItemText
-              id={item.id}
+                id={item.id}
                 primary={item.name || item.firstname}
                 secondary={item.lastname || item.capacity}
               />
@@ -87,7 +97,12 @@ const ListItems = (props) => {
                 <IconButton edge="end" aria-label="edit">
                   <EditIcon />
                 </IconButton>
-                <IconButton edge="end" aria-label="delete" id={item.id} onClick={handleClickDelete}>
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  id={item.id}
+                  onClick={handleClickDelete}
+                >
                   <DeleteIcon />
                 </IconButton>
               </ListItemSecondaryAction>
@@ -107,14 +122,18 @@ const ListItems = (props) => {
                 label="Name"
                 variant="outlined"
                 className={classes.inputarea}
-                onChange={(e)=>{setName(e.target.value)}}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
               />
               <TextField
                 id="firstname"
                 label="First Name"
                 variant="outlined"
                 className={classes.inputarea}
-                onChange={(e)=>{setFirstame(e.target.value)}}
+                onChange={(e) => {
+                  setFirstame(e.target.value);
+                }}
               />
 
               <TextField
@@ -122,22 +141,27 @@ const ListItems = (props) => {
                 label="Last Name"
                 variant="outlined"
                 className={classes.inputarea}
-                onChange={(e)=>{setLastname(e.target.value)}}
+                onChange={(e) => {
+                  setLastname(e.target.value);
+                }}
               />
 
-               <TextField
-               type="number"
+              <TextField
+                type="number"
                 id="capacity"
                 label="Capacity"
                 variant="outlined"
                 className={classes.inputarea}
-                onChange={(e)=>{setCapacity(e.target.value)}}
+                onChange={(e) => {
+                  setCapacity(e.target.value);
+                }}
               />
 
               <Button
                 variant="outlined"
                 color="primary"
                 className={classes.buttons}
+                onClick={handleaddDonnes}
               >
                 SEND
               </Button>
