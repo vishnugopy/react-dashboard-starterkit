@@ -50,6 +50,11 @@ const Dashboard = () => {
     buttons: {
       marginRight: "1%",
     },
+    bigbuttons :{
+    width:"23%",
+    margin:"1%",
+    alignContent: "center"
+    }
   }));
 
   const classes = useStyles();
@@ -137,16 +142,16 @@ const Dashboard = () => {
   return (
     <Container className="list-all">
       {error && <p>{error}</p>}
-      <Button variant="outlined" color="primary" onClick={promoshow}>
+      <Button variant="outlined" color="primary" onClick={promoshow} className={classes.bigbuttons}>
         Ajouter les Promo
       </Button>
-      <Button variant="outlined" color="primary" onClick={salleshow}>
+      <Button variant="outlined" color="primary" onClick={salleshow} className={classes.bigbuttons}>
         Ajouter les Salles
       </Button>
-      <Button variant="outlined" color="primary" onClick={studentshow}>
+      <Button variant="outlined" color="primary" onClick={studentshow} className={classes.bigbuttons}>
         Ajouter les Apprenants
       </Button>
-      <Button variant="outlined" color="primary" onClick={formateurshow}>
+      <Button variant="outlined" color="primary" onClick={formateurshow} className={classes.bigbuttons}>
         Ajouter les Formateurs
       </Button>
    
