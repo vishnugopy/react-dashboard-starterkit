@@ -40,45 +40,14 @@ const ListItems = (props) => {
       display: "flex",
       flexDirection: "row",
       flexWrap: "wrap",
-    },
-    box: {
-      padding: "1%",
-      margin: "1%",
-    },
-    inputarea: {
-      width: "100%",
-      marginTop: "1%",
-      marginBottom: "1%",
-    },
-    buttons: {
-      marginRight: "1%",
-    },
+    }
   }));
 
   const classes = useStyles();
 
   const [showInputs, setShowInputs] = useState("");
-  const [name, setName] = useState("");
-  const [firstname, setFirstame] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [capacity, setCapacity] = useState(0);
 
-
-  console.log(name);
-  
-  
-
-  const handleClickAdd = () => {
-    setShowInputs(!showInputs);
-  };
-
-  const handleClickDelete = (id,e) => {
-    promoService.deletePromo(id);
-  };
-
-  const handleaddDonnes = () => {
-     promoService.addPromo(name);
-  };
+ 
 
   return (
     <Container className={classes.sub}>
@@ -101,7 +70,7 @@ const ListItems = (props) => {
                   edge="end"
                   aria-label="delete"
                   id={item.id}
-                  onClick={handleClickDelete}
+                  onClick={props.delete}
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -110,73 +79,6 @@ const ListItems = (props) => {
           );
         })}
       </List>
-      <Box className={classes.box}>
-        <Button variant="outlined" color="primary" onClick={handleClickAdd}>
-          Add
-        </Button>
-        {showInputs && (
-          <List>
-            <ListItem className={classes.form}>
-              <TextField
-                id="name"
-                label="Name"
-                variant="outlined"
-                className={classes.inputarea}
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-              />
-              <TextField
-                id="firstname"
-                label="First Name"
-                variant="outlined"
-                className={classes.inputarea}
-                onChange={(e) => {
-                  setFirstame(e.target.value);
-                }}
-              />
-
-              <TextField
-                id="lastname"
-                label="Last Name"
-                variant="outlined"
-                className={classes.inputarea}
-                onChange={(e) => {
-                  setLastname(e.target.value);
-                }}
-              />
-
-              <TextField
-                type="number"
-                id="capacity"
-                label="Capacity"
-                variant="outlined"
-                className={classes.inputarea}
-                onChange={(e) => {
-                  setCapacity(e.target.value);
-                }}
-              />
-
-              <Button
-                variant="outlined"
-                color="primary"
-                className={classes.buttons}
-                onClick={handleaddDonnes}
-              >
-                SEND
-              </Button>
-
-              <Button
-                variant="outlined"
-                color="secondary"
-                onClick={handleClickAdd}
-              >
-                CANCEL
-              </Button>
-            </ListItem>
-          </List>
-        )}
-      </Box>
     </Container>
   );
 };
