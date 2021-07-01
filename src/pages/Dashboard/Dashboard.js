@@ -31,6 +31,11 @@ const Dashboard = () => {
       marginTop: "5%",
       marginBottom: "15%",
     },
+    form: {
+      display: "flex",
+      flexDirection: "row",
+      flexWrap: "wrap",
+    },
     box: {
       padding: "1%",
       margin: "1%",
@@ -57,6 +62,7 @@ const Dashboard = () => {
   const [name, setName] = useState("");
   const [firstname, setFirstame] = useState("");
   const [lastname, setLastname] = useState("");
+  const [stacks, setStacks] = useState("");
   const [capacity, setCapacity] = useState(0);
 
   const getStudentsData = async () => {
@@ -88,9 +94,22 @@ const Dashboard = () => {
     getStudentsData();
   };
 
+//add
+  const addPromoFunction = async () => {
+    await promoService.addPromo(name);
+    getPromosData();
+  };
   const addStudentFunction = async () => {
     await apprenantService.addStudent(firstname, lastname);
     getStudentsData();
+  };
+  const addFormateurFunction = async () => {
+    await formateurService.addFormateur(firstname, lastname , stacks);
+    getFormateursData();
+  };
+  const addSallesFunction = async () => {
+    await salleService.addSalle(name, capacity);
+    getSallesData();
   };
 
   useEffect((props) => {
@@ -103,6 +122,7 @@ const Dashboard = () => {
   return (
     <Container className="list-all">
       {error && <p>{error}</p>}
+      <Button onClick={handleClickAdd}>Ajouter les donnes</Button>
       <Container className={classes.maincontainer}>
         <ListItems class={classes.gridItem} title="Promos" items={promos} />
         <ListItems
@@ -111,15 +131,14 @@ const Dashboard = () => {
           delete={handleClickDelete}
         />
         <ListItems title="Formateurs" items={formateurs} />
-        <ListItems title="Salles" items={salles} />
+        <ListItems title="Salles" items={salles}/>
       </Container>
 
+      {showInputs && (
       <Container>
         <Box className={classes.box}>
-          <Button variant="outlined" color="primary" onClick={handleClickAdd}>
             Add Promo
-          </Button>
-          {showInputs && (
+         
             <List>
               <ListItem className={classes.form}>
                 <TextField
@@ -136,7 +155,7 @@ const Dashboard = () => {
                   variant="outlined"
                   color="primary"
                   className={classes.buttons}
-                  onClick={addStudentFunction}
+                  onClick={addPromoFunction}
                 >
                   SEND
                 </Button>
@@ -150,14 +169,12 @@ const Dashboard = () => {
                 </Button>
               </ListItem>
             </List>
-          )}
         </Box>
 
         <Box className={classes.box}>
-          <Button variant="outlined" color="primary" onClick={handleClickAdd}>
-            Add Student
-          </Button>
-          {showInputs && (
+
+        Add Apprenants
+
             <List>
               <ListItem className={classes.form}>
                 <TextField
@@ -197,14 +214,10 @@ const Dashboard = () => {
                 </Button>
               </ListItem>
             </List>
-          )}
         </Box>
 
         <Box className={classes.box}>
-          <Button variant="outlined" color="primary" onClick={handleClickAdd}>
             Add Salle
-          </Button>
-          {showInputs && (
             <List>
               <ListItem className={classes.form}>
                 <TextField
@@ -231,7 +244,7 @@ const Dashboard = () => {
                   variant="outlined"
                   color="primary"
                   className={classes.buttons}
-                  onClick={addStudentFunction}
+                  onClick={addSallesFunction}
                 >
                   SEND
                 </Button>
@@ -245,14 +258,12 @@ const Dashboard = () => {
                 </Button>
               </ListItem>
             </List>
-          )}
         </Box>
 
         <Box className={classes.box}>
-          <Button variant="outlined" color="primary" onClick={handleClickAdd}>
+    
             Add Formateurs
-          </Button>
-          {showInputs && (
+
             <List>
               <ListItem className={classes.form}>
                 <TextField
@@ -280,7 +291,7 @@ const Dashboard = () => {
                   variant="outlined"
                   className={classes.inputarea}
                   onChange={(e) => {
-                    setCapacity(e.target.value);
+                    setStacks(e.target.value);
                   }}
                 />
 
@@ -288,7 +299,7 @@ const Dashboard = () => {
                   variant="outlined"
                   color="primary"
                   className={classes.buttons}
-                  onClick={addStudentFunction}
+                  onClick={addFormateurFunction}
                 >
                   SEND
                 </Button>
@@ -302,10 +313,9 @@ const Dashboard = () => {
                 </Button>
               </ListItem>
             </List>
-          )}
         </Box>
-      </Container>
-    </Container>
+      </Container>)}
+    </Container>          
   );
 };
 

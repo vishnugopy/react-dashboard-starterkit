@@ -35,11 +35,6 @@ const ListItems = (props) => {
       color: "black",
       padding: "1rem",
       margin: "0",
-    },
-    form: {
-      display: "flex",
-      flexDirection: "row",
-      flexWrap: "wrap",
     }
   }));
 
