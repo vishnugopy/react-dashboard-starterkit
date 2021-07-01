@@ -38,7 +38,9 @@ const Dashboard = () => {
     },
     box: {
       padding: "1%",
-      margin: "1%",
+      background: "white",
+      margin: "1% auto",
+  
     },
     inputarea: {
       width: "100%",
@@ -58,7 +60,11 @@ const Dashboard = () => {
   const [salles, setSalles] = useState([]);
   const authstore = useContext(authContext);
 
-  const [showInputs, setShowInputs] = useState("");
+  const [showPromo, setShowPromo] = useState("");
+  const [showSalle, setShowSalle] = useState("");
+  const [showFormateurs, setShowFormateurs] = useState("");
+  const [showStudents, setShowStudents] = useState("");
+
   const [name, setName] = useState("");
   const [firstname, setFirstame] = useState("");
   const [lastname, setLastname] = useState("");
@@ -83,8 +89,17 @@ const Dashboard = () => {
   };
 
   //functions for crud
-  const handleClickAdd = () => {
-    setShowInputs(!showInputs);
+  const promoshow = () => {
+    setShowPromo(!showPromo);
+  };
+  const salleshow = () => {
+    setShowSalle(!showSalle);
+  };
+  const studentshow = () => {
+    setShowStudents(!showStudents);
+  };
+  const formateurshow = () => {
+    setShowFormateurs(!showFormateurs);
   };
 
   const handleClickDelete = async (id) => {
@@ -94,7 +109,7 @@ const Dashboard = () => {
     getStudentsData();
   };
 
-//add
+  //add
   const addPromoFunction = async () => {
     await promoService.addPromo(name);
     getPromosData();
@@ -104,7 +119,7 @@ const Dashboard = () => {
     getStudentsData();
   };
   const addFormateurFunction = async () => {
-    await formateurService.addFormateur(firstname, lastname , stacks);
+    await formateurService.addFormateur(firstname, lastname, stacks);
     getFormateursData();
   };
   const addSallesFunction = async () => {
@@ -122,23 +137,25 @@ const Dashboard = () => {
   return (
     <Container className="list-all">
       {error && <p>{error}</p>}
-      <Button onClick={handleClickAdd}>Ajouter les donnes</Button>
-      <Container className={classes.maincontainer}>
-        <ListItems class={classes.gridItem} title="Promos" items={promos} />
-        <ListItems
-          title="Apprenants"
-          items={students}
-          delete={handleClickDelete}
-        />
-        <ListItems title="Formateurs" items={formateurs} />
-        <ListItems title="Salles" items={salles}/>
-      </Container>
+      <Button variant="outlined" color="primary" onClick={promoshow}>
+        Ajouter les Promo
+      </Button>
+      <Button variant="outlined" color="primary" onClick={salleshow}>
+        Ajouter les Salles
+      </Button>
+      <Button variant="outlined" color="primary" onClick={studentshow}>
+        Ajouter les Apprenants
+      </Button>
+      <Button variant="outlined" color="primary" onClick={formateurshow}>
+        Ajouter les Formateurs
+      </Button>
+   
 
-      {showInputs && (
+
       <Container>
-        <Box className={classes.box}>
+        {showPromo && (
+          <Box className={classes.box}>
             Add Promo
-         
             <List>
               <ListItem className={classes.form}>
                 <TextField
@@ -163,159 +180,168 @@ const Dashboard = () => {
                 <Button
                   variant="outlined"
                   color="secondary"
-                  onClick={handleClickAdd}
+                  onClick={promoshow}
                 >
                   CANCEL
                 </Button>
               </ListItem>
             </List>
-        </Box>
+          </Box>
+        )}
 
+{showStudents && (
         <Box className={classes.box}>
+          Add Apprenants
+          <List>
+            <ListItem className={classes.form}>
+              <TextField
+                id="firstname"
+                label="First Name"
+                variant="outlined"
+                className={classes.inputarea}
+                onChange={(e) => {
+                  setFirstame(e.target.value);
+                }}
+              />
 
-        Add Apprenants
+              <TextField
+                id="lastname"
+                label="Last Name"
+                variant="outlined"
+                className={classes.inputarea}
+                onChange={(e) => {
+                  setLastname(e.target.value);
+                }}
+              />
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classes.buttons}
+                onClick={addStudentFunction}
+              >
+                SEND
+              </Button>
 
-            <List>
-              <ListItem className={classes.form}>
-                <TextField
-                  id="firstname"
-                  label="First Name"
-                  variant="outlined"
-                  className={classes.inputarea}
-                  onChange={(e) => {
-                    setFirstame(e.target.value);
-                  }}
-                />
-
-                <TextField
-                  id="lastname"
-                  label="Last Name"
-                  variant="outlined"
-                  className={classes.inputarea}
-                  onChange={(e) => {
-                    setLastname(e.target.value);
-                  }}
-                />
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  className={classes.buttons}
-                  onClick={addStudentFunction}
-                >
-                  SEND
-                </Button>
-
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  onClick={handleClickAdd}
-                >
-                  CANCEL
-                </Button>
-              </ListItem>
-            </List>
-        </Box>
-
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={studentshow}
+              >
+                CANCEL
+              </Button>
+            </ListItem>
+          </List>
+        </Box> )}
+        {showSalle && (
         <Box className={classes.box}>
-            Add Salle
-            <List>
-              <ListItem className={classes.form}>
-                <TextField
-                  id="name"
-                  label="Name"
-                  variant="outlined"
-                  className={classes.inputarea}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
-                />
-                <TextField
-                  type="number"
-                  id="capacity"
-                  label="Capacity"
-                  variant="outlined"
-                  className={classes.inputarea}
-                  onChange={(e) => {
-                    setCapacity(e.target.value);
-                  }}
-                />
+          Add Salle
+          <List>
+            <ListItem className={classes.form}>
+              <TextField
+                id="name"
+                label="Name"
+                variant="outlined"
+                className={classes.inputarea}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+              />
+              <TextField
+                type="number"
+                id="capacity"
+                label="Capacity"
+                variant="outlined"
+                className={classes.inputarea}
+                onChange={(e) => {
+                  setCapacity(e.target.value);
+                }}
+              />
 
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  className={classes.buttons}
-                  onClick={addSallesFunction}
-                >
-                  SEND
-                </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classes.buttons}
+                onClick={addSallesFunction}
+              >
+                SEND
+              </Button>
 
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  onClick={handleClickAdd}
-                >
-                  CANCEL
-                </Button>
-              </ListItem>
-            </List>
-        </Box>
-
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={salleshow}
+              >
+                CANCEL
+              </Button>
+            </ListItem>
+          </List>
+        </Box>)}
+        {showFormateurs && (
         <Box className={classes.box}>
-    
-            Add Formateurs
+          Add Formateurs
+          <List>
+            <ListItem className={classes.form}>
+              <TextField
+                id="firstname"
+                label="First Name"
+                variant="outlined"
+                className={classes.inputarea}
+                onChange={(e) => {
+                  setFirstame(e.target.value);
+                }}
+              />
+              <TextField
+                id="lastname"
+                label="Last Name"
+                variant="outlined"
+                className={classes.inputarea}
+                onChange={(e) => {
+                  setLastname(e.target.value);
+                }}
+              />
 
-            <List>
-              <ListItem className={classes.form}>
-                <TextField
-                  id="firstname"
-                  label="First Name"
-                  variant="outlined"
-                  className={classes.inputarea}
-                  onChange={(e) => {
-                    setFirstame(e.target.value);
-                  }}
-                />
-                <TextField
-                  id="lastname"
-                  label="Last Name"
-                  variant="outlined"
-                  className={classes.inputarea}
-                  onChange={(e) => {
-                    setLastname(e.target.value);
-                  }}
-                />
+              <TextField
+                id="stacks"
+                label="Stacks"
+                variant="outlined"
+                className={classes.inputarea}
+                onChange={(e) => {
+                  setStacks(e.target.value);
+                }}
+              />
 
-                <TextField
-                  id="stacks"
-                  label="Stacks"
-                  variant="outlined"
-                  className={classes.inputarea}
-                  onChange={(e) => {
-                    setStacks(e.target.value);
-                  }}
-                />
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classes.buttons}
+                onClick={addFormateurFunction}
+              >
+                SEND
+              </Button>
 
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  className={classes.buttons}
-                  onClick={addFormateurFunction}
-                >
-                  SEND
-                </Button>
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={formateurshow}
+              >
+                CANCEL
+              </Button>
+            </ListItem>
+          </List>
+        </Box>)}
+      </Container>
 
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  onClick={handleClickAdd}
-                >
-                  CANCEL
-                </Button>
-              </ListItem>
-            </List>
-        </Box>
-      </Container>)}
-    </Container>          
+      <Container className={classes.maincontainer}>
+        <ListItems class={classes.gridItem} title="Promos" items={promos} />
+        <ListItems
+          title="Apprenants"
+          items={students}
+          delete={handleClickDelete}
+        />
+        <ListItems title="Formateurs" items={formateurs} />
+        <ListItems title="Salles" items={salles} />
+      </Container>
+    </Container>
   );
 };
 
